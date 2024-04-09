@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export function getDataFromAPI(baseUrl, userKey, inputValue) {
   const fullUrl = buildFullUrl(baseUrl, userKey, inputValue);
   return fetch(fullUrl)
