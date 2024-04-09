@@ -1,25 +1,185 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
-@import url('./reset.css');
-@import url('./vite-promo.css');
-@import url('./header.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
 
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  --lite: #fff;
+  --size: 48px;
+  --brand: #ff3d00;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px;
-  line-height: 24px;
   font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background-color: #626262;
+}
 
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
+.gallery {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+.gallery-item {
+  border: 1px solid #ffffff;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover,
+.gallery-item:focus {
+  transform: scale(1.04);
+}
+
+.gallery-image {
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.gallery-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 24px;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.gallery-text span {
+  font-weight: 600;
+  line-height: 1.33;
+}
+
+.gallery-text li {
+  text-align: center;
+}
+
+.search-form {
+  margin: 30px auto;
+  max-width: 1440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-form button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background-color: #4e75ff;
+  color: #fff;
+  padding: 8px 16px;
+  margin: 8px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-form button:hover,
+.search-form button:focus {
+  background-color: #6c8cff;
+}
+
+.search-form input {
+  padding: 8px 16px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #808080;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+.iziToast-close {
+  background: url(../img/close.svg) no-repeat 50% 50% !important;
+  margin-top: 0;
+}
+
+.sl-wrapper {
+  background-color: rgba(46, 47, 66, 0.8);
+}
+
+.simple-lightbox > button.sl-close,
+.simple-lightbox > div.sl-counter,
+.simple-lightbox > .sl-navigation > button.sl-next,
+.simple-lightbox > .sl-navigation > button.sl-prev {
+  color: #ffffff;
+}
+
+.loader-wrapper {
+  margin: 0 auto;
+  max-width: 1440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-wrapper.is-hidden {
+  display: none;
+}
+
+.loader {
+  width: var(--size);
+  height: var(--size);
+  border: 3px solid var(--lite);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc((var(--size) - 8px));
+  height: calc((var(--size) - 8px));
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: var(--brand) transparent;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
