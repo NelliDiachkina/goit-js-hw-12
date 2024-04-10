@@ -1,27 +1,37 @@
 import axios from 'axios';
 
-export function getDataFromAPI(baseUrl, userKey, inputValue) {
-  const fullUrl = buildFullUrl(baseUrl, userKey, inputValue);
-  return fetch(fullUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
-    })
-    .catch(error => {
-      console.log('ERROR:', error);
-      return Promise.reject(error);
-    });
+export async function getDataFromAPI(
+  baseUrl,
+  userKey,
+  inputValue,
+  page,
+  limitPageContent
+) {
+  const fullUrl = buildFullUrl(
+    baseUrl,
+    userKey,
+    inputValue,
+    page,
+    limitPageContent
+  );
+  try {
+    const { data } = await axios.get(fullUrl);
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
 }
 
-function buildFullUrl(baseUrl, userKey, inputValue) {
+function buildFullUrl(baseUrl, userKey, inputValue, page, limitPageContent) {
   const searchParams = new URLSearchParams({
     key: userKey,
     q: inputValue,
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: 'true',
+    page: page,
+    per_page: limitPageContent,
   });
   return `${baseUrl}?${searchParams}`;
 }
