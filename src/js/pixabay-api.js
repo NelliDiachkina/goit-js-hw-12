@@ -14,13 +14,9 @@ export async function getDataFromAPI(
     page,
     limitPageContent
   );
-  try {
-    const { data } = await axios.get(fullUrl);
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
-  }
+
+  const { data } = await axios.get(fullUrl);
+  return data;
 }
 
 function buildFullUrl(baseUrl, userKey, inputValue, page, limitPageContent) {
