@@ -22,7 +22,7 @@ const btnLoadMore = document.querySelector('.load-more-btn');
 formEl.addEventListener('submit', onSubmitForm);
 btnLoadMore.addEventListener('click', onLoadMoreButtonClick);
 
-function onSubmitForm(e) {
+async function onSubmitForm(e) {
   e.preventDefault();
   galleryEl.innerHTML = '';
   btnLoadMore.classList.add('is-hidden');
@@ -37,9 +37,15 @@ function onSubmitForm(e) {
   }
 
   loaderWrapperEl.classList.remove('is-hidden');
-  fetchData(baseUrl, userKey, inputSearchValue, currentPage, limitPageContent);
-
   e.currentTarget.reset();
+
+  await fetchData(
+    baseUrl,
+    userKey,
+    inputSearchValue,
+    currentPage,
+    limitPageContent
+  );
 }
 
 async function fetchData(
@@ -85,7 +91,7 @@ async function fetchData(
 
 async function onLoadMoreButtonClick() {
   currentPage += 1;
-
+  btnLoadMore.disabled = true;
   loaderWrapperEl.classList.remove('is-hidden');
 
   await fetchData(
@@ -97,6 +103,7 @@ async function onLoadMoreButtonClick() {
   );
 
   smoothScroll();
+  btnLoadMore.disabled = false;
 
   if (currentPage === totalContentPages) {
     btnLoadMore.classList.add('is-hidden');
