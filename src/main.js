@@ -6,8 +6,9 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 import iconError from './img/icon-error.svg';
 
-const userKey = '43191917-c04fdef32fb86ad7b3c63ee66';
-const baseUrl = 'https://pixabay.com/api/';
+const BASE_URL = 'https://pixabay.com/api/';
+const API_KEY = '43191917-c04fdef32fb86ad7b3c63ee66';
+
 let currentPage = 1;
 let limitPageContent = 15;
 let currentSearchQuery = null;
@@ -37,15 +38,16 @@ async function onSubmitForm(e) {
   }
 
   loaderWrapperEl.classList.remove('is-hidden');
-  e.currentTarget.reset();
 
   await fetchData(
-    baseUrl,
-    userKey,
+    BASE_URL,
+    API_KEY,
     inputSearchValue,
     currentPage,
     limitPageContent
   );
+
+  currentSearchQuery = inputSearchValue;
 }
 
 async function fetchData(
@@ -72,10 +74,9 @@ async function fetchData(
       return;
     }
 
-    currentSearchQuery = inputSearchValue;
     totalContent = data.totalHits;
-    const totalPages = Math.ceil(totalContent / limitPageContent);
-    totalContentPages = totalPages;
+    totalContentPages = Math.ceil(totalContent / limitPageContent);
+
     renderGalleryImg(galleryEl, formData);
 
     if (totalContentPages > 1) {
@@ -85,6 +86,7 @@ async function fetchData(
     displayErrorMessage('Error fetching data. Please try again later', 'Error');
     console.error('Error fetching data:', error);
   } finally {
+    formEl.reset();
     loaderWrapperEl.classList.add('is-hidden');
   }
 }
@@ -95,8 +97,8 @@ async function onLoadMoreButtonClick() {
   loaderWrapperEl.classList.remove('is-hidden');
 
   await fetchData(
-    baseUrl,
-    userKey,
+    BASE_URL,
+    API_KEY,
     currentSearchQuery,
     currentPage,
     limitPageContent
@@ -121,7 +123,7 @@ function smoothScroll() {
   const galleryItemHeight = galleryItem.getBoundingClientRect().height;
 
   window.scrollBy({
-    top: galleryItemHeight * 2,
+    top: galleryItemHeight * 3,
     behavior: 'smooth',
   });
 }
